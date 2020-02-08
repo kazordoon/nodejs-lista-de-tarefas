@@ -1,0 +1,9 @@
+{
+  "name": "nodejs-lista-de-tarefas",
+  "version": "1.0.0",
+  "description": "Cada usuário cadastrado no banco de dados do sistema poderá criar sua própria lista de tarefas.",
+  "main": "index.js",
+  "repository": "https://github.com/kazordoon/nodejs-lista-de-tarefas.git",
+  "author": "Felipe Barros <felipetech@tuta.io>",
+  "license": "MIT"
+}
