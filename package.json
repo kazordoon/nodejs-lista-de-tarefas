@@ -5,5 +5,20 @@
   "main": "index.js",
   "repository": "https://github.com/kazordoon/nodejs-lista-de-tarefas.git",
   "author": "Felipe Barros <felipetech@tuta.io>",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "consign": "^0.1.6",
+    "ejs": "^3.0.1",
+    "express": "^4.17.1",
+    "mongoose": "^5.8.11",
+    "morgan": "^1.9.1"
+  },
+  "devDependencies": {
+    "eslint": "^6.8.0",
+    "eslint-config-standard": "^14.1.0",
+    "eslint-plugin-import": "^2.20.1",
+    "eslint-plugin-node": "^11.0.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.1"
+  }
 }
