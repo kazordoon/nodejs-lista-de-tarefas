@@ -7,7 +7,9 @@
   "author": "Felipe Barros <felipetech@tuta.io>",
   "license": "MIT",
   "dependencies": {
+    "bcrypt": "^3.0.8",
     "consign": "^0.1.6",
+    "dotenv": "^8.2.0",
     "ejs": "^3.0.1",
     "express": "^4.17.1",
     "mongoose": "^5.8.11",
