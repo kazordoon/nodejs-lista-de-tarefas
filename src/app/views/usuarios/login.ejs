@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous" />
+</head>
+<body>
+  <h1 class="text-center">Login</h1>
+  <hr />
+  <div class="container border p-2" style="width: 400px">
+    <% if (erro) { %>
+      <div class="error">
+        <p class="alert alert-danger">
+          <%= erro %> 
+        </p>
+      </div>
+    <% } %>
+    <form method="post" name="form-login">
+      <div class="form-group">
+        <label for="username">Nome de Usuário</label>
+        <input type="text" name="nome_usuario" id="username" class="form-control" >
+      </div>
+      <div class="form-group">
+        <label for="password">Senha</label>
+        <input type="password" name="senha" id="password" class="form-control" />
+      </div>
+      <button class="btn btn-primary mx-auto d-block">Login</button>
+    </form>
+  </div>
+
+  <script>
+    (function () {
+      const form = document.forms['form-login']
+      const divContainer = document.querySelector('div.container')
+
+      function validarDados(event) {
+        const nome_usuario = document.querySelector('#username').value
+        const senha = document.querySelector('#password').value
+
+        let erros = []
+
+        const doc =  new DocumentFragment()
+        let divErro = document.querySelector('div.error')
+
+        if (!divErro) {
+          divErro = document.createElement('div')
+        }
+        
+        divErro.innerHTML = ''
+        divErro.classList.add('error')
+
+        if (nome_usuario.length === 0 || senha.length === 0) {
+          event.preventDefault()
+          erros.push('Preencha todos os campos corretamente')
+        }
+
+        erros.forEach(erro => {
+          const pElement = document.createElement('p')
+          pElement.classList.add('alert', 'alert-danger')
+          pElement.appendChild(document.createTextNode(erro))
+          divErro.appendChild(pElement)
+        })
+
+        doc.appendChild(divErro)
+        divContainer.prepend(doc)
+      }
+
+      form.addEventListener('submit', validarDados)
+    })()
+  </script>
+</body>
+</html>
