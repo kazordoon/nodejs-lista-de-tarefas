@@ -45,9 +45,13 @@ module.exports = function (app) {
           return res.status(400).render('usuarios/cadastrar', { erro })
         }
 
-        await Usuario.create({ nome_usuario, senha })
+        const usuario = await Usuario.create({ nome_usuario, senha })
 
-        return res.status(201).redirect('/usuarios/login')
+        const token = jwt.sign({ id: usuario._id }, process.env.SECRET_KEY, { expiresIn: '1h' }) 
+
+        res.cookie('jwtToken', token)
+
+        res.redirect('/tarefas')
       } catch (err) {
         const erro = 'Não foi possível realizar o cadastro de uma nova conta'
         return res.status(400).render('usuarios/cadastro', { erro })
