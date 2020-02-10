@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tarefas | <%= nome_usuario %></title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous" />
+</head>
+<body>
+  <div class="text-center">
+    <h1>Tarefas</h1>
+    <p><em><%= nome_usuario %></em></p>
+  </div>
+  <hr />
+
+  <div class="container">
+    <% if (erro) { %>
+      <div class="error">
+        <p class="alert alert-danger">
+          <%= erro %> 
+        </p>
+      </div>
+    <% } %>
+
+      <form method="POST" name="form-criar-tarefa" class="form-group" onsubmit="notNull(event)">
+        <div class="input-group mb-3" style="width: 50%">
+          <input type="text" name="tarefa" id="nome-tarefa" class="form-control" required />
+          <div class="input-group-append">
+            <button type="submit" class="btn btn-primary">Criar</button>
+          </div>
+        </div>
+      </form>
+
+    <ul class="list-group">
+      <% tarefas.forEach(tarefa => { %>
+        <li class="list-group-item font-weight-bold">
+          <span data-id="<%= tarefas.indexOf(tarefa) %>"><%= tarefa %></span>
+          <button class="btn btn-danger float-right" onclick="deletarTarefa(event)">Excluir</button>
+        </li>
+      <% }) %>
+    </ul>
+  </div>
+
+  <script>
+    function deletarTarefa (event) {
+      const id = event.target.previousElementSibling.getAttribute('data-id')
+
+      fetch(`/tarefas/${id}`, { method: 'DELETE' })
+        .then(console.log)
+        .then(() => event.target.parentNode.remove())
+    }
+
+    function notNull (event) {
+      const input = document.querySelector('#nome-tarefa').value
+
+      if (!input) {
+        event.preventDefault()
+        
+        let divErro = document.querySelector('div.error')
+        if (!divErro) {
+          divErro = document.createElement('div')
+          divErro.classList.add('error')
+        }
+
+        divErro.innerHTML = ''
+        const p = document.createElement('p')
+        const text = document.createTextNode('Preencha o campo!')
+        p.classList.add('alert', 'alert-danger')
+        p.appendChild(text)
+
+        divErro.appendChild(p)
+
+        document.querySelector('div.container').prepend(divErro)
+      }
+    }
+  </script>
+</body>
+</html>

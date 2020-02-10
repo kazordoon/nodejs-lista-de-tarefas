@@ -5,6 +5,8 @@ module.exports = function (app) {
   const { auth } = app.middlewares
 
   router.get('/', auth, tarefasController.index)
+  router.post('/', auth, tarefasController.criar)
+  router.delete('/:id', auth, tarefasController.deletar)
 
   return router
 }
