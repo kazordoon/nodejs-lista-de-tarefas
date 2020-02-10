@@ -1,6 +1,6 @@
 module.exports = function (app) {
   return {
-    index (req, res) {
+    async index (req, res) {
       try {
         return res.render('tarefas/teste')
       } catch (err) {

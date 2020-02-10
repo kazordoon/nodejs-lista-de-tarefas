@@ -1,6 +1,7 @@
 const express = require('express')
 const consign = require('consign')
 const morgan = require('morgan')
+const cookieParser = require('cookie-parser')
 
 const app = express()
 
@@ -11,10 +12,12 @@ app.set('PORT', process.env.PORT || 3000)
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 app.use(morgan('dev'))
+app.use(cookieParser())
 
 consign({ cwd: 'src/app' })
   .include('models')
   .then('controllers')
+  .then('middlewares')
   .then('routes')
   .into(app)
 

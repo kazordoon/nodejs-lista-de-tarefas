@@ -1,6 +1,8 @@
 /* eslint-disable camelcase */
+require('dotenv').config()
 const Joi = require('joi')
 const bcrypt = require('bcrypt')
+const jwt = require('jsonwebtoken')
 
 module.exports = function (app) {
   const { Usuario } = app.models
@@ -56,25 +58,11 @@ module.exports = function (app) {
       try {
         const { nome_usuario, senha } = req.body
 
-        // Validação de dados
-        const schema = Joi.object({
-          nome_usuario: Joi.string().min(3).required(),
-          senha: Joi.string().min(8).required()
-        })
-
-        const value = schema.validate({ nome_usuario, senha })
-
-        if (value.error) {
-          const erro = 'Falha na autenticação'
-          return res.status(401).render('usuarios/login', { erro })
-        }
-        /* Fim da validação */
-
         const usuario = await Usuario.findOne({ nome_usuario })
 
         if (!usuario) {
-          const erro = 'Não existe nenhuma conta associada à este nome de usuário'
-          return res.status(400).render('usuarios/login', { erro })
+          const erro = 'Falha na autenticação'
+          return res.status(401).render('usuarios/login', { erro })
         }
 
         if (!await bcrypt.compare(senha, usuario.senha)) {
@@ -82,7 +70,11 @@ module.exports = function (app) {
           return res.status(401).render('usuarios/login', { erro })
         }
 
-        res.status(202).redirect('/tarefas')
+        const token = jwt.sign({ id: usuario._id }, process.env.SECRET_KEY, { expiresIn: '1h' })
+
+        res.cookie('jwtToken', token)
+
+        res.redirect('/tarefas')
       } catch (err) {
         const erro = 'Não foi possível realizar o login'
         return res.status(400).render('usuarios/login', { erro })

@@ -2,8 +2,9 @@ const router = require('express').Router()
 
 module.exports = function (app) {
   const { tarefasController } = app.controllers
+  const { auth } = app.middlewares
 
-  router.get('/', tarefasController.index)
+  router.get('/', auth, tarefasController.index)
 
   return router
 }
