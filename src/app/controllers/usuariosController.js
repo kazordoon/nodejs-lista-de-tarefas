@@ -10,6 +10,12 @@ module.exports = function (app) {
   return {
     getCadastrar (req, res) {
       try {
+        const { jwtToken } = req.cookies
+
+        if (jwtToken && jwt.verify(jwtToken, process.env.SECRET_KEY)) {
+          return res.redirect('/tarefas')
+        }
+
         return res.render('usuarios/cadastrar', { erro: false })
       } catch (err) {
         return res.status(500).send('Erro ao carregar a página')
@@ -49,6 +55,12 @@ module.exports = function (app) {
     },
     getLogin (req, res) {
       try {
+        const { jwtToken } = req.cookies
+
+        if (jwtToken && jwt.verify(jwtToken, process.env.SECRET_KEY)) {
+          return res.redirect('/tarefas')
+        }
+
         return res.render('usuarios/login', { erro: false })
       } catch (err) {
         return res.status(500).send('Erro ao carregar a página')
