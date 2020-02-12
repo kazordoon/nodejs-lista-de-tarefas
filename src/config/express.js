@@ -24,4 +24,16 @@ consign({ cwd: 'src/app' })
 app.use('/tarefas', app.routes.tarefas)
 app.use('/usuarios', app.routes.usuarios)
 
+// Tratamento de rotas não encontradas:
+app.use((req, res, next) => {
+  const erro = new Error('Página não encontrada')
+  erro.status = 404
+  next(erro)
+})
+
+app.use((error, req, res, next) => {
+  res.status(error.status || 500)
+  return res.render('error', { erro: error.message })
+})
+
 module.exports = app
