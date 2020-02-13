@@ -47,7 +47,7 @@ module.exports = function (app) {
 
         const usuario = await Usuario.create({ nome_usuario, senha })
 
-        const token = jwt.sign({ id: usuario._id }, process.env.SECRET_KEY, { expiresIn: '1h' })
+        const token = jwt.sign({ id: usuario._id }, process.env.SECRET_KEY)
 
         res.cookie('jwtToken', token)
 
@@ -86,7 +86,7 @@ module.exports = function (app) {
           return res.status(401).render('usuarios/login', { erro })
         }
 
-        const token = jwt.sign({ id: usuario._id }, process.env.SECRET_KEY, { expiresIn: '1h' })
+        const token = jwt.sign({ id: usuario._id }, process.env.SECRET_KEY)
 
         res.cookie('jwtToken', token)
 
