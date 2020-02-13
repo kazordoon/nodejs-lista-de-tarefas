@@ -12,7 +12,7 @@ app.set('PORT', process.env.PORT || 3000)
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 app.use(morgan('dev'))
-app.use(cookieParser())
+app.use(cookieParser(process.env.COOKIE_SECRET))
 
 consign({ cwd: 'src/app' })
   .include('models')
