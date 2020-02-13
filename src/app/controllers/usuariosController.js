@@ -1,6 +1,6 @@
 /* eslint-disable camelcase */
 require('dotenv').config()
-const Joi = require('joi')
+const Joi = require('@hapi/joi')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 
@@ -27,15 +27,15 @@ module.exports = function (app) {
 
         // Validação de dados
         const schema = Joi.object({
-          nome_usuario: Joi.string().min(3).required(),
+          nome_usuario: Joi.string().pattern(new RegExp('^[a-zA-Z0-9]{3,50}$')).min(3).required(),
           senha: Joi.string().min(8).required(),
-          repetir_senha: Joi.string().min(8).required()
+          repetir_senha: Joi.ref('senha')
         })
 
         const value = schema.validate({ nome_usuario, senha, repetir_senha })
 
         if (value.error) {
-          const erro = 'Falha na autenticação'
+          const erro = 'Nome de usuário ou senha inválido'
           return res.status(401).render('usuarios/cadastrar', { erro })
         }
         /* Fim da validação */
