@@ -12,7 +12,7 @@ module.exports = function (app) {
       try {
         const { jwtToken } = req.cookies
 
-        if (jwtToken && jwt.verify(jwtToken, process.env.SECRET_KEY)) {
+        if (jwtToken && jwt.verify(jwtToken, process.env.JWT_SECRET)) {
           return res.redirect('/tarefas')
         }
 
@@ -47,7 +47,7 @@ module.exports = function (app) {
 
         const usuario = await Usuario.create({ nome_usuario, senha })
 
-        const token = jwt.sign({ id: usuario._id }, process.env.SECRET_KEY)
+        const token = jwt.sign({ id: usuario._id }, process.env.JWT_SECRET)
 
         res.cookie('jwtToken', token)
 
@@ -61,7 +61,7 @@ module.exports = function (app) {
       try {
         const { jwtToken } = req.cookies
 
-        if (jwtToken && jwt.verify(jwtToken, process.env.SECRET_KEY)) {
+        if (jwtToken && jwt.verify(jwtToken, process.env.JWT_SECRET)) {
           return res.redirect('/tarefas')
         }
 
@@ -86,7 +86,7 @@ module.exports = function (app) {
           return res.status(401).render('usuarios/login', { erro })
         }
 
-        const token = jwt.sign({ id: usuario._id }, process.env.SECRET_KEY)
+        const token = jwt.sign({ id: usuario._id }, process.env.JWT_SECRET)
 
         res.cookie('jwtToken', token)
 
