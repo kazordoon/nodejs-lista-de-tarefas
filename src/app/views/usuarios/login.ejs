@@ -43,30 +43,32 @@
 
         let erros = []
 
-        const doc =  new DocumentFragment()
-        let divErro = document.querySelector('div.error')
-
-        if (!divErro) {
-          divErro = document.createElement('div')
-        }
-        
-        divErro.innerHTML = ''
-        divErro.classList.add('error')
-
         if (nome_usuario.length === 0 || senha.length === 0) {
-          event.preventDefault()
           erros.push('Preencha todos os campos corretamente')
         }
 
-        erros.forEach(erro => {
-          const pElement = document.createElement('p')
-          pElement.classList.add('alert', 'alert-danger')
-          pElement.appendChild(document.createTextNode(erro))
-          divErro.appendChild(pElement)
-        })
+        if (erros.length > 0) {
+          event.preventDefault()
+          const doc =  new DocumentFragment()
+          let divErro = document.querySelector('div.error')
 
-        doc.appendChild(divErro)
-        divContainer.prepend(doc)
+          if (!divErro) {
+            divErro = document.createElement('div')
+          }
+          
+          divErro.innerHTML = ''
+          divErro.classList.add('error')
+
+          erros.forEach(erro => {
+            const pElement = document.createElement('p')
+            pElement.classList.add('alert', 'alert-danger')
+            pElement.appendChild(document.createTextNode(erro))
+            divErro.appendChild(pElement)
+          })
+
+          doc.appendChild(divErro)
+          divContainer.prepend(doc)
+        }
       }
 
       form.addEventListener('submit', validarDados)

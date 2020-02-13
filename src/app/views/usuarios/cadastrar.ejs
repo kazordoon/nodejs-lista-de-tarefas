@@ -46,40 +46,46 @@
 
         let erros = []
 
+        const regex = /^[a-zA-Z0-9]{3,50}$/
+        if (!nome_usuario.match(regex)) {
+          erros.push('O nome de usuário deve conter apenas letras e números')
+        }
+
         if (nome_usuario.length < 3) {
-          event.preventDefault()
-          error.push('O nome de usuário deve ter no mínimo 3 carácteres')
+          erros.push('O nome de usuário deve ter no mínimo 3 carácteres')
         }
 
         if (repetir_senha.length !== senha.length && repetir_senha !== senha) {
-          event.preventDefault()
           erros.push('As senhas não coincidem')
         }
 
         if (senha.length < 8 && repetir_senha.length !== 8) {
-          event.preventDefault()
           erros.push('A senha deve ter no mínimo 8 carácteres')
         }
-
-        const doc =  new DocumentFragment()
-        let divErro = document.querySelector('div.error')
-
-        if (!divErro) {
-          divErro = document.createElement('div')
-        }
         
-        divErro.innerHTML = ''
-        divErro.classList.add('error')
+        if (erros.length > 0) {
+          event.preventDefault()
 
-        erros.forEach(erro => {
-          const pElement = document.createElement('p')
-          pElement.classList.add('alert', 'alert-danger')
-          pElement.appendChild(document.createTextNode(erro))
-          divErro.appendChild(pElement)
-        })
+          const doc =  new DocumentFragment()
+          let divErro = document.querySelector('div.error')
 
-        doc.appendChild(divErro)
-        divContainer.prepend(doc)
+          if (!divErro) {
+            divErro = document.createElement('div')
+          }
+          
+          divErro.innerHTML = ''
+          divErro.classList.add('error')
+
+          erros.forEach(erro => {
+            const pElement = document.createElement('p')
+            pElement.classList.add('alert', 'alert-danger')
+            pElement.appendChild(document.createTextNode(erro))
+            divErro.appendChild(pElement)
+          })
+
+          doc.appendChild(divErro)
+          divContainer.prepend(doc)
+        }
       }
 
       form.addEventListener('submit', validarDados)
