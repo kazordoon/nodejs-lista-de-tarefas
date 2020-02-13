@@ -19,6 +19,8 @@ module.exports = function (app) {
   UsuarioSchema.pre('save', async function (next) {
     const senhaComHash = await bcrypt.hash(this.senha, 10)
     this.senha = senhaComHash
+    this.nome_usuario = this.nome_usuario.toLowerCase()
+
     next()
   })
 

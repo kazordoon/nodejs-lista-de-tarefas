@@ -23,7 +23,8 @@ module.exports = function (app) {
     },
     async postCadastrar (req, res) {
       try {
-        const { nome_usuario, senha, repetir_senha } = req.body
+        let { nome_usuario, senha, repetir_senha } = req.body
+        nome_usuario = nome_usuario.toLowerCase()
 
         // Validação de dados
         const schema = Joi.object({
@@ -72,7 +73,8 @@ module.exports = function (app) {
     },
     async postLogin (req, res) {
       try {
-        const { nome_usuario, senha } = req.body
+        let { nome_usuario, senha } = req.body
+        nome_usuario = nome_usuario.toLowerCase()
 
         const usuario = await Usuario.findOne({ nome_usuario })
 
