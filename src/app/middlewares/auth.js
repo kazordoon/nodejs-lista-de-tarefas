@@ -1,4 +1,3 @@
-require('dotenv').config()
 const jwt = require('jsonwebtoken')
 const secret = process.env.JWT_SECRET
 
@@ -15,7 +14,6 @@ module.exports = function (app) {
         return res.redirect('/usuarios/login')
       }
 
-      // O id que estava codificado no token, agora poderá ser usado por req.userId
       req.userId = decoded.id
       return next()
     })

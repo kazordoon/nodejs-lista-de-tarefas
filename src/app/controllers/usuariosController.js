@@ -1,5 +1,4 @@
 /* eslint-disable camelcase */
-require('dotenv').config()
 const Joi = require('@hapi/joi')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
