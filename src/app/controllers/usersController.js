@@ -1,10 +1,10 @@
 /* eslint-disable camelcase */
 const Joi = require('@hapi/joi')
 const bcrypt = require('bcrypt')
-const jwt = require('jsonwebtoken')
 
 module.exports = function (app) {
   const { User } = app.models
+  const { generateToken } = app.utils
 
   return {
     registrationPage (req, res) {
@@ -40,7 +40,8 @@ module.exports = function (app) {
 
         const user = await User.create({ username, password: password1 })
 
-        const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET)
+        const payload = { id: user._id }
+        const token = generateToken(payload)
 
         res.cookie('jwtToken', token)
 
@@ -73,7 +74,8 @@ module.exports = function (app) {
           return res.status(401).render('users/login', { error })
         }
 
-        const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET)
+        const payload = { id: user._id }
+        const token = generateToken(payload)
 
         res.cookie('jwtToken', token)
 
