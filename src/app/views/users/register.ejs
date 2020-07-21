@@ -21,15 +21,15 @@
     <form method="post" name="registration-page">
       <div class="form-group">
         <label for="username">Nome de Usuário</label>
-        <input type="text" name="username" id="username" minlength="3" class="form-control" >
+        <input type="text" name="username" id="username" minlength="3" class="form-control" required />
       </div>
       <div class="form-group">
         <label for="password">Senha</label>
-        <input type="password" name="password1" id="password" minlength="8" class="form-control" />
+        <input type="password" name="password1" id="password" minlength="8" class="form-control" required />
       </div>
       <div class="form-group">
         <label for="repeat-password">Repita a senha</label>
-        <input type="password" name="password2" id="repeat-password" minlength="8" class="form-control" />
+        <input type="password" name="password2" id="repeat-password" minlength="8" class="form-control" required />
       </div>
       <button class="btn btn-primary mx-auto d-block">Cadastrar</button>
     </form>
