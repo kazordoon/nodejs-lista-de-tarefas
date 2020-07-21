@@ -2,6 +2,7 @@ const express = require('express')
 const consign = require('consign')
 const morgan = require('morgan')
 const cookieParser = require('cookie-parser')
+const { resolve } = require('path')
 
 const app = express()
 
@@ -22,6 +23,7 @@ consign({ cwd: 'src/app' })
   .then('routes')
   .into(app)
 
+app.use('/public', express.static(resolve(__dirname, '..', '..', 'public')))
 app.use('/tarefas', app.routes.tarefas)
 app.use('/usuarios', app.routes.usuarios)
 
