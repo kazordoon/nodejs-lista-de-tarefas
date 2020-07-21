@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Página não encontrada!</title>
+  <title><%- title %></title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous" />
   <style>
     @media screen and (max-width: 420px) {
@@ -14,7 +14,7 @@
   </style>
 </head>
 <body>
-  <h1 class="text-center">Ops... Parece que esta página não existe.</h1>
+  <h1 class="text-center"><%- title %></h1>
   <hr />
   <div class="container text-center p-2">
     <p><a href="/usuarios/cadastrar">Clique aqui</a> para registrar uma nova conta.</p>
