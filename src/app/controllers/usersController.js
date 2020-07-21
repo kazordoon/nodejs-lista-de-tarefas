@@ -9,12 +9,6 @@ module.exports = function (app) {
   return {
     registrationPage (req, res) {
       try {
-        const { jwtToken } = req.cookies
-
-        if (jwtToken && jwt.verify(jwtToken, process.env.JWT_SECRET)) {
-          return res.redirect('/tarefas')
-        }
-
         return res.render('users/register', { error: false })
       } catch (err) {
         return res.status(500).send('Erro ao carregar a página')
@@ -58,12 +52,6 @@ module.exports = function (app) {
     },
     loginPage (req, res) {
       try {
-        const { jwtToken } = req.cookies
-
-        if (jwtToken && jwt.verify(jwtToken, process.env.JWT_SECRET)) {
-          return res.redirect('/tarefas')
-        }
-
         return res.render('users/login', { error: false })
       } catch (err) {
         return res.status(500).send('Erro ao carregar a página')
