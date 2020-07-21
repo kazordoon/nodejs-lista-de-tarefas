@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cadastro</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous" />
+</head>
+<body>
+  <h1 class="text-center">Cadastro</h1>
+  <hr />
+  <div class="container border p-2" style="width: 400px">
+    <% if (error) { %>
+      <div class="error">
+        <p class="alert alert-danger">
+          <%= error %> 
+        </p>
+      </div>
+    <% } %>
+    <form method="post" name="registration-page">
+      <div class="form-group">
+        <label for="username">Nome de Usuário</label>
+        <input type="text" name="username" id="username" minlength="3" class="form-control" >
+      </div>
+      <div class="form-group">
+        <label for="password">Senha</label>
+        <input type="password" name="password1" id="password" minlength="8" class="form-control" />
+      </div>
+      <div class="form-group">
+        <label for="repeat-password">Repita a senha</label>
+        <input type="password" name="password2" id="repeat-password" minlength="8" class="form-control" />
+      </div>
+      <button class="btn btn-primary mx-auto d-block">Cadastrar</button>
+    </form>
+  </div>
+
+  <script>
+    (function () {
+      const form = document.forms['registration-page']
+      const divContainer = document.querySelector('div.container')
+
+      function handleFormSubmit(event) {
+        const username = document.querySelector('#username').value
+        const password1 = document.querySelector('#password').value
+        const password2 = document.querySelector('#repeat-password').value
+
+        let errors = []
+
+        const regex = /^[a-zA-Z0-9]{3,50}$/
+        if (!username.match(regex)) {
+          errors.push('O nome de usuário deve conter apenas letras e números')
+        }
+
+        if (username.length < 3) {
+          errors.push('O nome de usuário deve ter no mínimo 3 carácteres')
+        }
+
+        if (password2.length !== password1.length && password2 !== password1) {
+          errors.push('As senhas não coincidem')
+        }
+
+        if (password1.length < 8 || password2.length !== 8) {
+          errors.push('A senha deve ter no mínimo 8 carácteres')
+        }
+        
+        if (errors.length > 0) {
+          event.preventDefault()
+
+          const doc =  new DocumentFragment()
+          let divError = document.querySelector('div.error')
+
+          if (!divError) {
+            divError = document.createElement('div')
+          }
+          
+          divError.innerHTML = ''
+          divError.classList.add('error')
+
+          errors.forEach(error => {
+            const pElement = document.createElement('p')
+            pElement.classList.add('alert', 'alert-danger')
+            pElement.appendChild(document.createTextNode(error))
+            divError.appendChild(pElement)
+          })
+
+          doc.appendChild(divError)
+          divContainer.prepend(doc)
+        }
+      }
+
+      form.addEventListener('submit', handleFormSubmit)
+    })()
+  </script>
+</body>
+</html>

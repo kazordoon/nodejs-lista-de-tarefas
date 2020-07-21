@@ -3,28 +3,28 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Tarefas | <%= nome_usuario %></title>
+  <title>Tarefas | <%= username %></title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous" />
 </head>
 <body>
   <div class="text-center">
     <h1>Tarefas</h1>
-    <p><em><%= nome_usuario %></em></p>
+    <p><em><%= username %></em></p>
   </div>
   <hr />
 
   <div class="container">
-    <% if (erro) { %>
+    <% if (error) { %>
       <div class="error">
         <p class="alert alert-danger">
-          <%= erro %> 
+          <%= error %> 
         </p>
       </div>
     <% } %>
 
-      <form method="POST" name="form-criar-tarefa" class="form-group" onsubmit="notNull(event)">
+      <form method="POST" name="create-task-form" class="form-group" onsubmit="notNull(event)">
         <div class="input-group mb-3" style="width: 100%">
-          <input type="text" name="tarefa" id="nome-tarefa" class="form-control" required />
+          <input type="text" name="task" id="task-name" class="form-control" required />
           <div class="input-group-append">
             <button type="submit" class="btn btn-primary">Criar</button>
           </div>
@@ -32,17 +32,17 @@
       </form>
 
     <ul class="list-group">
-      <% tarefas.forEach(tarefa => { %>
+      <% tasks.forEach(task => { %>
         <li class="list-group-item font-weight-bold">
-          <span data-id="<%= tarefas.indexOf(tarefa) %>"><%= tarefa %></span>
-          <button class="btn btn-danger float-right" onclick="deletarTarefa(event)">Excluir</button>
+          <span data-id="<%= tasks.indexOf(task) %>"><%= task %></span>
+          <button class="btn btn-danger float-right" onclick="deleteTask(event)">Excluir</button>
         </li>
       <% }) %>
     </ul>
   </div>
 
   <script>
-    function deletarTarefa (event) {
+    function deleteTask (event) {
       const id = event.target.previousElementSibling.getAttribute('data-id')
 
       fetch(`/tarefas/${id}`, { method: 'DELETE' })
@@ -51,26 +51,26 @@
     }
 
     function notNull (event) {
-      const input = document.querySelector('#nome-tarefa').value
+      const input = document.querySelector('#task-name').value
 
       if (!input) {
         event.preventDefault()
         
-        let divErro = document.querySelector('div.error')
-        if (!divErro) {
-          divErro = document.createElement('div')
-          divErro.classList.add('error')
+        let divError = document.querySelector('div.error')
+        if (!divError) {
+          divError = document.createElement('div')
+          divError.classList.add('error')
         }
 
-        divErro.innerHTML = ''
+        divError.innerHTML = ''
         const p = document.createElement('p')
         const text = document.createTextNode('Preencha o campo!')
         p.classList.add('alert', 'alert-danger')
         p.appendChild(text)
 
-        divErro.appendChild(p)
+        divError.appendChild(p)
 
-        document.querySelector('div.container').prepend(divErro)
+        document.querySelector('div.container').prepend(divError)
       }
     }
   </script>

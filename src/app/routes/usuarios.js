@@ -1,20 +1,14 @@
 const router = require('express').Router()
 
 module.exports = function (app) {
-  const {
-    usuariosController: {
-      getCadastrar,
-      postCadastrar,
-      getLogin,
-      postLogin
-    }
-  } = app.controllers
+  const { usersController } = app.controllers
 
-  router.get('/cadastrar', getCadastrar)
-  router.post('/cadastrar', postCadastrar)
+  console.log(usersController)
+  router.get('/cadastrar', usersController.registrationPage)
+  router.post('/cadastrar', usersController.register)
 
-  router.get('/login', getLogin)
-  router.post('/login', postLogin)
+  router.get('/login', usersController.loginPage)
+  router.post('/login', usersController.login)
 
   return router
 }

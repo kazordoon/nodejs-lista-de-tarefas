@@ -26,14 +26,14 @@ app.use('/usuarios', app.routes.usuarios)
 
 // Tratamento de rotas não encontradas:
 app.use((req, res, next) => {
-  const erro = new Error('Página não encontrada')
-  erro.status = 404
-  next(erro)
+  const error = new Error('Página não encontrada')
+  error.status = 404
+  next(error)
 })
 
 app.use((error, req, res, next) => {
   res.status(error.status || 500)
-  return res.render('error', { erro: error.message })
+  return res.render('error')
 })
 
 module.exports = app

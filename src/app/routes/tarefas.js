@@ -1,12 +1,12 @@
 const router = require('express').Router()
 
 module.exports = function (app) {
-  const { tarefasController } = app.controllers
+  const { tasksController } = app.controllers
   const { auth } = app.middlewares
 
-  router.get('/', auth, tarefasController.index)
-  router.post('/', auth, tarefasController.criar)
-  router.delete('/:id', auth, tarefasController.deletar)
+  router.get('/', auth, tasksController.index)
+  router.post('/', auth, tasksController.store)
+  router.delete('/:id', auth, tasksController.destroy)
 
   return router
 }
