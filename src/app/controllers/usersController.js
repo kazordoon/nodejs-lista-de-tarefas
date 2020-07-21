@@ -20,21 +20,25 @@ module.exports = function (app) {
 
         // Validação de dados
         const schema = Joi.object({
-          username: Joi.string().pattern(new RegExp('^[a-zA-Z0-9]{3,50}$')).min(3).required(),
+          username: Joi.string()
+            .pattern(new RegExp('^[a-zA-Z0-9]{3,50}$'))
+            .min(3)
+            .required(),
           password1: Joi.string().min(8).required(),
           password2: Joi.ref('password1')
         })
 
-        const value = schema.validate({ username, password1, password2 })
+        const validation = schema.validate({ username, password1, password2 })
 
-        if (value.error) {
+        if (validation.error) {
           const error = 'Nome de usuário ou senha inválido'
           return res.status(401).render('users/register', { error })
         }
         /* Fim da validação */
 
-        if (await User.findOne({ username })) {
-          const error = 'Já existe uma conta com este nome de usuário, tente outro'
+        const userAlreadyExists = await User.findOne({ username })
+        if (userAlreadyExists) {
+          const error = 'Já existe uma conta com este nome de usuário'
           return res.status(400).render('users/register', { error })
         }
 
@@ -44,8 +48,7 @@ module.exports = function (app) {
         const token = generateToken(payload)
 
         res.cookie('jwtToken', token)
-
-        res.redirect('/tarefas')
+        return res.redirect('/tarefas')
       } catch (err) {
         const error = 'Não foi possível realizar o cadastro de uma nova conta'
         return res.status(400).render('users/cadastro', { error })
@@ -69,7 +72,11 @@ module.exports = function (app) {
           return res.status(401).render('users/login', { error })
         }
 
-        if (!await bcrypt.compare(password, user.password)) {
+        const incorrectPassword = !(await bcrypt.compare(
+          password,
+          user.password
+        ))
+        if (incorrectPassword) {
           const error = 'Falha na autenticação'
           return res.status(401).render('users/login', { error })
         }
@@ -78,8 +85,7 @@ module.exports = function (app) {
         const token = generateToken(payload)
 
         res.cookie('jwtToken', token)
-
-        res.redirect('/tarefas')
+        return res.redirect('/tarefas')
       } catch (err) {
         const error = 'Não foi possível realizar o login'
         return res.status(400).render('users/login', { error })

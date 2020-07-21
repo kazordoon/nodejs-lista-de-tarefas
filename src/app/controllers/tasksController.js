@@ -19,12 +19,11 @@ module.exports = function (app) {
     async store (req, res) {
       try {
         const { task } = req.body
-
         const { userId } = req
 
         const user = await User.findById(userId)
 
-        const tasks = [...user.tasks]
+        const { tasks } = user
         tasks.push(task)
 
         await user.update({ $set: { tasks } })
@@ -38,12 +37,11 @@ module.exports = function (app) {
     async destroy (req, res) {
       try {
         const { id } = req.params
-
         const { userId } = req
 
         const user = await User.findById(userId)
 
-        const tasks = [...user.tasks]
+        const { tasks } = user
         tasks.splice(id, 1)
 
         await user.update({ $set: { tasks } })

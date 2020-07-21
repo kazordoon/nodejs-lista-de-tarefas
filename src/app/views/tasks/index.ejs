@@ -22,7 +22,7 @@
       <% } %>
     </div>
 
-      <form method="POST" name="create-task-form" class="form-group" onsubmit="notNull(event)">
+      <form method="POST" name="create-task-form" class="form-group">
         <div class="input-group mb-3" style="width: 100%">
           <input type="text" name="task" id="task-name" class="form-control" required />
           <div class="input-group-append">
@@ -35,7 +35,7 @@
       <% tasks.forEach(task => { %>
         <li class="list-group-item font-weight-bold">
           <span data-id="<%= tasks.indexOf(task) %>"><%= task %></span>
-          <button class="btn btn-danger float-right" onclick="deleteTask(event)">Excluir</button>
+          <button class="btn btn-danger float-right delete-task-button">Excluir</button>
         </li>
       <% }) %>
     </ul>

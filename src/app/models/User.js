@@ -21,10 +21,9 @@ module.exports = function (app) {
     const hashedPassword = await bcrypt.hash(this.password, 10)
     this.password = hashedPassword
 
-    next()
+    return next()
   })
 
   const User = mongoose.model('User', UserSchema)
-
   return User
 }
