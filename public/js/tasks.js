@@ -10,6 +10,7 @@ import replaceErrorContainerContent from './functions/replaceErrorContainerConte
 
     fetch(`/tarefas/${taskId}`, { method: 'DELETE' })
       .then(() => event.target.parentNode.remove())
+      .catch(() => alert('Não foi possível deletar esta tarefa.'))
   }
 
   function handleFormSubmit (event) {
