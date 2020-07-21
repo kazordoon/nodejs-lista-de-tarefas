@@ -30,10 +30,8 @@ Após ter feito o procedimento acima, ligue o servidor:
 - [consign](https://github.com/jarradseers/consign/) - Faz o carregamento automático de scripts
 - [cookie-parser](https://github.com/expressjs/cookie-parser/) - Analisa cookies
 - [ejs](https://github.com/mde/ejs/) - Renderiza páginas html no back-end
-- [dotenv](https://github.com/motdotla/dotenv/) - Carrega variáveis de ambiente no arquivo .env
 - [bcrypt](https://github.com/kelektiv/node.bcrypt.js/) - Biblioteca que ajuda a criptografar senhas
 - [jsonwebtoken](https://github.com/auth0/node-jsonwebtoken/) - Implementação do Json Web Token
-- [morgan](https://github.com/expressjs/morgan/) - Middleware para registrar as solicitações HTTP
 
 ## Licença
 Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](https://github.com/kazordoon/nodejs-lista-de-tarefas/blob/master/LICENSE) para mais detalhes.
