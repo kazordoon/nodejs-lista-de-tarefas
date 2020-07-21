@@ -14,13 +14,13 @@
   <hr />
 
   <div class="container">
-    <% if (error) { %>
-      <div class="error">
-        <p class="alert alert-danger">
+    <div class="error-container">
+      <% if (error) { %>
+        <div class="alert alert-danger">
           <%= error %> 
-        </p>
-      </div>
-    <% } %>
+        </div>
+      <% } %>
+    </div>
 
       <form method="POST" name="create-task-form" class="form-group" onsubmit="notNull(event)">
         <div class="input-group mb-3" style="width: 100%">
@@ -41,6 +41,6 @@
     </ul>
   </div>
 
-  <script src="/public/js/tasks.js"></script>
+  <script type="module" src="/public/js/tasks.js"></script>
 </body>
 </html>

@@ -1,3 +1,7 @@
+import replaceErrorContainerContent from './functions/replaceErrorContainerContent.js'
+
+const errorContainer = document.querySelector('.error-container')
+
 function deleteTask (event) {
   const id = event.target.previousElementSibling.getAttribute('data-id')
 
@@ -11,21 +15,6 @@ function notNull (event) {
 
   if (!input) {
     event.preventDefault()
-
-    let divError = document.querySelector('div.error')
-    if (!divError) {
-      divError = document.createElement('div')
-      divError.classList.add('error')
-    }
-
-    divError.innerHTML = ''
-    const p = document.createElement('p')
-    const text = document.createTextNode('Preencha o campo!')
-    p.classList.add('alert', 'alert-danger')
-    p.appendChild(text)
-
-    divError.appendChild(p)
-
-    document.querySelector('div.container').prepend(divError)
+    replaceErrorContainerContent(errorContainer, 'Preencha o campo!')
   }
 }

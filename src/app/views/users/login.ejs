@@ -10,13 +10,14 @@
   <h1 class="text-center">Login</h1>
   <hr />
   <div class="container border p-2" style="width: 400px">
-    <% if (error) { %>
-      <div class="error">
-        <p class="alert alert-danger">
+    <div class="error-container">
+      <% if (error) { %>
+        <div class="alert alert-danger">
           <%= error %> 
-        </p>
-      </div>
-    <% } %>
+        </div>
+      <% } %>
+    </div>
+
     <form method="post" name="login-form">
       <div class="form-group">
         <label for="username">Nome de Usuário</label>
@@ -32,6 +33,6 @@
     </form>
   </div>
 
-  <script src="/public/js/login.js"></script>
+  <script type="module" src="/public/js/login.js"></script>
 </body>
 </html>
