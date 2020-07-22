@@ -20,7 +20,6 @@ import replaceErrorContainerContent from './functions/replaceErrorContainerConte
       event.preventDefault()
       const errorMessage = 'Preencha o campo!'
       replaceErrorContainerContent(errorContainer, errorMessage)
-      return;
     }
   }
 
