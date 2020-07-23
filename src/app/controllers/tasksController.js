@@ -28,7 +28,8 @@ module.exports = function (app) {
 
         await user.update({ $set: { tasks } })
 
-        return res.redirect('/tarefas')
+        const taskId = tasks.indexOf(task)
+        return res.json({ id: taskId })
       } catch (err) {
         const error = 'Não foi possível criar uma nova tarefa'
         return res.render('tarefas/index', { error })
