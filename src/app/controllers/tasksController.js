@@ -24,6 +24,11 @@ module.exports = function (app) {
         const user = await User.findById(userId)
 
         const { tasks } = user
+
+        if (tasks.includes(task)) {
+          return res.status(406).json({ error: 'Esta tarefa já existe.' })
+        }
+
         tasks.push(task)
 
         await user.update({ $set: { tasks } })

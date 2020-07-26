@@ -1,5 +1,7 @@
 import replaceErrorContainerContent from './functions/replaceErrorContainerContent.js'
 import makeLiTaskElement from './functions/makeLiTaskElement.js'
+import getLocalStorageTasks from './functions/getLocalStorageTasks.js'
+import addTaskToTheLocalStorage from './functions/addTaskToTheLocalStorage.js'
 
 (function () {
   const form = document.forms['create-task-form']
@@ -23,10 +25,17 @@ import makeLiTaskElement from './functions/makeLiTaskElement.js'
     if (!input) {
       const errorMessage = 'Preencha o campo!'
       replaceErrorContainerContent(errorContainer, errorMessage)
+      return
+    }
+
+    const tasks = getLocalStorageTasks()
+    if (tasks.includes(input)) {
+      const errorMessage = 'Esta tarefa já existe.'
+      replaceErrorContainerContent(errorContainer, errorMessage)
+      return
     }
 
     const body = { task: input }
-
     const response = await fetch('/tarefas', {
       method: 'POST',
       headers: {
@@ -36,8 +45,11 @@ import makeLiTaskElement from './functions/makeLiTaskElement.js'
     })
     const task = await response.json()
 
+    addTaskToTheLocalStorage(input)
+
     const taskLiElement = makeLiTaskElement(task.id, input)
     taskListsContainer.appendChild(taskLiElement)
+    errorContainer.innerHTML = ''
   }
 
   form.addEventListener('submit', handleFormSubmit)
