@@ -1,0 +1,5 @@
+export { default as addTaskToTheLocalStorage } from './addTaskToTheLocalStorage.js'
+export { default as getLocalStorageTasks } from './getLocalStorageTasks.js'
+export { default as makeErrorElement } from './makeErrorElement.js'
+export { default as makeLiTaskElement } from './makeLiTaskElement.js'
+export { default as replaceErrorContainerContent } from './replaceErrorContainerContent.js'

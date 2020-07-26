@@ -1,7 +1,9 @@
-import replaceErrorContainerContent from './functions/replaceErrorContainerContent.js'
-import makeLiTaskElement from './functions/makeLiTaskElement.js'
-import getLocalStorageTasks from './functions/getLocalStorageTasks.js'
-import addTaskToTheLocalStorage from './functions/addTaskToTheLocalStorage.js'
+import {
+  replaceErrorContainerContent,
+  makeLiTaskElement,
+  getLocalStorageTasks,
+  addTaskToTheLocalStorage
+} from './functions/index.js';
 
 (function () {
   const form = document.forms['create-task-form']
