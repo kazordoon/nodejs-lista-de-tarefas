@@ -31,7 +31,7 @@ module.exports = function (app) {
 
         tasks.push(task)
 
-        await user.update({ $set: { tasks } })
+        await user.updateOne({ $set: { tasks } })
 
         const taskId = tasks.indexOf(task)
         return res.json({ id: taskId })
