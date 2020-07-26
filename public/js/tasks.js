@@ -53,6 +53,8 @@ import {
     const taskLiElement = makeLiTaskElement(task.id, taskContent)
     taskListsContainer.appendChild(taskLiElement)
     errorContainer.innerHTML = ''
+    input.value = ''
+    input.focus()
   }
 
   form.addEventListener('submit', handleFormSubmit)
