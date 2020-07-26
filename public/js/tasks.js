@@ -7,6 +7,7 @@ import {
 
 (function () {
   const form = document.forms['create-task-form']
+  const input = document.querySelector('#task-name')
   const deleteTaskButtons = document.querySelectorAll('.delete-task-btn')
   const errorContainer = document.querySelector('.error-container')
   const taskListsContainer = document.querySelector('ul.list-group')
@@ -22,22 +23,22 @@ import {
   async function handleFormSubmit (event) {
     event.preventDefault()
 
-    const input = document.querySelector('#task-name').value
+    const taskContent = input.value
 
-    if (!input) {
+    if (!taskContent) {
       const errorMessage = 'Preencha o campo!'
       replaceErrorContainerContent(errorContainer, errorMessage)
       return
     }
 
     const tasks = getLocalStorageTasks()
-    if (tasks.includes(input)) {
+    if (tasks.includes(taskContent)) {
       const errorMessage = 'Esta tarefa já existe.'
       replaceErrorContainerContent(errorContainer, errorMessage)
       return
     }
 
-    const body = { task: input }
+    const body = { task: taskContent }
     const response = await fetch('/tarefas', {
       method: 'POST',
       headers: {
@@ -47,9 +48,9 @@ import {
     })
     const task = await response.json()
 
-    addTaskToTheLocalStorage(input)
+    addTaskToTheLocalStorage(taskContent)
 
-    const taskLiElement = makeLiTaskElement(task.id, input)
+    const taskLiElement = makeLiTaskElement(task.id, taskContent)
     taskListsContainer.appendChild(taskLiElement)
     errorContainer.innerHTML = ''
   }
